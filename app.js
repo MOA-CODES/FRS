@@ -5,6 +5,8 @@ const errorHandler = require('./middleware/error-handler')
 const notFound = require('./middleware/not-found')
 const auth = require('./middleware/auth')
 
+const auth_R = require('./routes/auth_R')
+
 const conn = require('./db/conn')
 const express = require('express');
 const app = express();
@@ -14,6 +16,8 @@ const port = process.env.PORT || 3031
 app.get('/', (req, res) => {
     res.send('Friend Request System App')
 })
+
+app.use('api/v1/auth', auth_R)
 
 app.use(notFound)
 app.use(errorHandler)

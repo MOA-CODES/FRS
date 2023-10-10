@@ -17,4 +17,4 @@ const register = async (req, res)=>{
 
 }
 
-module.exports = {}
+module.exports = {register}
