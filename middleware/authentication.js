@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {StatusCodes} = require('http-status-codes')
-const customError = require('../middleware/customError')
+const customError = require('./customError')
 
 const auth = async (req, res, next) =>{
 
@@ -12,7 +12,7 @@ const auth = async (req, res, next) =>{
     const token = authHeader.split(' ')[1]
 
     try{
-        const payload = jwt.verify(token)
+        const payload = jwt.verify(token,process.env.KEY)
 
         req.user = {userId: payload.userId}
         next()

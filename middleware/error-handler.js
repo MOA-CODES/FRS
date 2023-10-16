@@ -16,6 +16,12 @@ const errorHandler = (err, req, res, next) => {
         customError.statusCode = StatusCodes.NOT_FOUND //404
       }
 
+      console.log(err.code)
+      if(err.code === 11000){
+        customError.msg=`Duplicate Key Error. Value, id or user details entered are already taken`
+        customError.statusCode = StatusCodes.INTERNAL_SERVER_ERROR
+      }
+
       return res.status(customError.statusCode).json({Error: err.name, msg:customError.msg})
 
 }

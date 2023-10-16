@@ -47,7 +47,10 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(){
     this.friends.push(this._id)
-    this.notifications.push(`Welcome to FRS ${this.Fname} ${this.Lname}`) //test
+
+    const date = new Date().toUTCString()
+
+    this.notifications.push(`Welcome to FRS ${this.Fname} ${this.Lname}. ${date}`) //test
 
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
@@ -59,7 +62,7 @@ userSchema.methods.comparePSW = async function(psw){
 }
 
 userSchema.methods.createJWT = function(){
-    return jwt.sign({userId:this._id}, process.env.KEY, {expiresIn: process.env.JWT_LIFETIME})
+    return jwt.sign({userId:this._id}, process.env.KEY, {expiresIn:process.env.JWT_LIFETIME})
 }
 
 module.exports = mongoose.model('User', userSchema)

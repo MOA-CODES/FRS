@@ -3,14 +3,15 @@ require('express-async-errors')
 
 const express = require('express');
 const morgan = require('morgan')
+const conn = require('./db/conn')
 
 const errorHandler = require('./middleware/error-handler')
 const notFound = require('./middleware/not-found')
-const auth = require('./middleware/auth')
+const auth = require('./middleware/authentication')
 
 const auth_R = require('./routes/auth_R')
+const noti_R = require('./routes/notification_R')
 
-const conn = require('./db/conn')
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/auth', auth_R)
+app.use('/api/v1/user/notifications', auth, noti_R)
 
 app.use(notFound)
 app.use(errorHandler)
