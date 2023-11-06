@@ -11,6 +11,7 @@ const auth = require('./middleware/authentication')
 
 const auth_R = require('./routes/auth_R')
 const noti_R = require('./routes/notification_R')
+const req_R = require('./routes/request_R')
 
 
 const app = express();

@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
         type: [mongoose.Types.ObjectId],
         ref: 'User',
         unique: true,
+    },
+    requests:{ //if accepted added to friends, then deleted from requests. only deleted if declined.
+        type:[mongoose.Types.ObjectId],
+        ref: 'User',
+        unique: true,
     }
 
 
